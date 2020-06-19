@@ -1,4 +1,9 @@
 <?php
+/**
+ * @Author <julienrajerison5@gmail.com>
+ *
+ * This file is part of techzara blog
+ */
 
 namespace App\Repository;
 

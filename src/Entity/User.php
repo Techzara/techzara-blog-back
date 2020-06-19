@@ -4,6 +4,7 @@
  *
  * This file is part of techzara blog
  */
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
