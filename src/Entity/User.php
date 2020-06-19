@@ -8,6 +8,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,6 +68,26 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $salt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="user")
+     */
+    private $blogs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="user")
+     */
+    private $reactions;
+
+    /**
+     * User constructor./**
+     *
+     */
+    public function __construct()
+    {
+        $this->blogs = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -193,5 +215,87 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Blog[]
+     */
+    public function getBlogs(): Collection
+    {
+        return $this->blogs;
+    }
+
+    /**
+     * @param Blog $blog
+     *
+     * @return $this
+     */
+    public function addBlog(Blog $blog): self
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs[] = $blog;
+            $blog->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Blog $blog
+     *
+     * @return $this
+     */
+    public function removeBlog(Blog $blog): self
+    {
+        if ($this->blogs->contains($blog)) {
+            $this->blogs->removeElement($blog);
+            // set the owning side to null (unless already changed)
+            if ($blog->getUser() === $this) {
+                $blog->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    /**
+     * @param Reaction $reaction
+     *
+     * @return $this
+     */
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Reaction $reaction
+     *
+     * @return $this
+     */
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->contains($reaction)) {
+            $this->reactions->removeElement($reaction);
+            // set the owning side to null (unless already changed)
+            if ($reaction->getUser() === $this) {
+                $reaction->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
