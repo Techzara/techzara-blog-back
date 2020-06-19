@@ -1,4 +1,9 @@
 <?php
+/**
+ * @Author <julienrajerison5@gmail.com>
+ *
+ * This file is part of techzara blog
+ */
 
 use App\Kernel;
 use Symfony\Component\Dotenv\Dotenv;

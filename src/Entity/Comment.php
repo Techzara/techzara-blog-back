@@ -39,6 +39,9 @@ class Comment
      */
     private $reactions;
 
+    /**
+     * Comment constructor.
+     */
     public function __construct()
     {
         $this->reactions = new ArrayCollection();
