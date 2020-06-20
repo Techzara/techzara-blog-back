@@ -14,10 +14,11 @@
 
 * Change database configuration in `.env`
 
-* COnfigure the JWT token :
+* Configure the [JWT token](https://github.com/lexik/LexikJWTAuthenticationBundle) :
 
-`composer require jwt-auth`  (see this)[https://github.com/lexik/LexikJWTAuthenticationBundle] for installation and configuration.
-
+``` 
+    composer require jwt-auth
+```  
 
 * Then run :
 ```
