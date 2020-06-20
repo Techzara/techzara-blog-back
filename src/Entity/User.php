@@ -81,7 +81,6 @@ class User implements UserInterface
     private $reactions;
 
     /**
-     * User constructor./**
      *
      */
     public function __construct()
