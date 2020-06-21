@@ -23,7 +23,7 @@ security:
         main:
             anonymous: true
             json_login:
-                check_path: /techzara_blog_token
+                check_path: /authentication_token
                 username_path: username
                 password_path: password
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
@@ -34,5 +34,5 @@ security:
     access_control:
         - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
         - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the user register
-        - { path: ^/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the user register
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
