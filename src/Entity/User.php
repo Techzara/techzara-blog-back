@@ -14,10 +14,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
@@ -36,42 +41,45 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100, unique=true)
      *
      * @Assert\NotBlank()
+     *
+     * @Groups({"read", "write"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=150)
      *
-     * @Assert\NotBlank()
+     * @Assert\Email()
+     *
+     * @Groups({"read", "write"})
      */
     private $email;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=false)
      *
-     * @Assert\NotBlank()
+     * @Groups("read")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     *
+     * @Groups({"read", "write"})
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="json")
+     *
+     * @Groups({"read", "write"})
      */
     private $roles = [];
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string")
-     */
-    private $salt;
-
-    /**
      * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="user")
+     *
+     * @Groups("read")
      */
     private $blogs;
 
@@ -81,7 +89,16 @@ class User implements UserInterface
     private $reactions;
 
     /**
+     * @var string|null
      *
+     * @SerializedName("password")
+     *
+     * @Assert\NotBlank()
+     */
+    private $plainPassword;
+
+    /**
+     * User constructor.
      */
     public function __construct()
     {
@@ -206,7 +223,27 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        return $this->salt;
+        // Return salt
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string|null $plainPassword
+     *
+     * @return User
+     */
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 
     /**
@@ -214,7 +251,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        return $this->setPlainPassword(null);
     }
 
     /**
