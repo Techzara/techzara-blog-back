@@ -55,6 +55,8 @@ class User implements UserInterface
      * @ORM\Column(type="uuid", unique=true)
      *
      * @ApiProperty(identifier=true)
+     *
+     * @Groups("read")
      */
     private $uuid;
 
@@ -78,8 +80,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="text", nullable=false)
-     *
-     * @Groups("read")
      */
     private $password;
 
