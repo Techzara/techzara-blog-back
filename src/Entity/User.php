@@ -100,6 +100,8 @@ class User implements UserInterface
      * @SerializedName("password")
      *
      * @Assert\NotBlank()
+     *
+     * @Groups("write")
      */
     private $plainPassword;
 
