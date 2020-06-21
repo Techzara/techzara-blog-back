@@ -13,6 +13,8 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\CreateMediaObjectAction;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,8 +68,23 @@ class MediaObject
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      * @ORM\Id
+     *
+     * @ApiProperty(identifier=false)
      */
     protected int $id;
+
+    /**
+     * The internal primary identity key.
+     *
+     * @var UuidInterface
+     *
+     * @ORM\Column(type="uuid", unique=true)
+     *
+     * @ApiProperty(identifier=true)
+     *
+     * @Groups("read")
+     */
+    private ?UuidInterface $uuid;
 
     /**
      * @var string|null
@@ -100,6 +117,22 @@ class MediaObject
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="images")
      */
     private Blog $blog;
+
+    /**
+     * MediaObject constructor.
+     */
+    public function __construct()
+    {
+        $this->uuid = Uuid::uuid4();
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
 
     /**
      * @return int|null
