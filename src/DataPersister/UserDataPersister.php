@@ -48,7 +48,6 @@ class UserDataPersister implements DataPersisterInterface
     public function persist($data)
     {
         if ($data instanceof User && $data->getPlainPassword()) {
-            $data->setUuid(Uuid::uuid4());
             $data->setPassword($this->encoder->encodePassword($data, $data->getPlainPassword()));
             $data->eraseCredentials();
         }

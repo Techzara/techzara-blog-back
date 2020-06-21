@@ -5,17 +5,36 @@
  * This file is part of techzara blog
  */
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BlogRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ramsey\Uuid\Nonstandard\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *      collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('ROLE_USER')"}
+ *     },
+ *     itemOperations={
+ *          "get",
+ *          "put"={"security"="is_granted('ROLE_ADMIN') or object.user = user"},
+ *          "delete"={"security"="is_granted('ROLE_ADMIN') or object.user = user"}
+ *     },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
+ *
  * @ORM\Entity(repositoryClass=BlogRepository::class)
  */
 class Blog
@@ -26,46 +45,79 @@ class Blog
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
-
-    /**
-     * @var string|null
      *
-     * @ORM\Column(type="text")
+     * @ApiProperty(identifier=false)
      */
-    private $image;
+    private int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogs")
+     * The internal primary identity key.
+     *
+     * @var UuidInterface
+     *
+     * @ORM\Column(type="uuid", unique=true)
+     *
+     * @ApiProperty(identifier=true)
+     *
+     * @Groups("read")
      */
-    private $user;
+    private ?UuidInterface $uuid;
+
+    /**
+     * @ORM\Column(type="text")
+     *
+     * @Groups({"read","write"})
+     */
+    private string $title;
+
+    /**
+     * @ORM\Column(type="text")
+     *
+     * @Groups({"read","write"})
+     */
+    private string $description;
+
+    /**
+     * @var Collection|null
+     *
+     * @ORM\OneToMany(targetEntity=MediaObject::class, cascade={"persist","remove"}, mappedBy="blog")
+     *
+     * @ApiProperty(iri="http://schema.org/image")
+     *
+     * @Groups({"read","write"})
+     */
+    private ?Collection $images;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogs")
+     *
+     * @Groups({"read","write"})
+     */
+    private User $user;
 
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="blog")
+     *
+     * @Groups({"read","write"})
      */
-    private $tags;
+    private Collection $tags;
 
     /**
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="blog")
+     *
+     * @Groups("read")
      */
-    private $reactions;
+    private Collection $reactions;
 
     /**
      * Blog constructor.
      */
     public function __construct()
     {
+        $this->uuid = Uuid::uuid4();
+        $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->reactions = new ArrayCollection();
     }
@@ -76,6 +128,14 @@ class Blog
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
     }
 
     /**
@@ -119,21 +179,33 @@ class Blog
     }
 
     /**
-     * @return string|null
+     * @return Collection|null
      */
-    public function getImage(): ?string
+    public function getImages(): ?Collection
     {
-        return $this->image;
+        return $this->images;
     }
 
     /**
-     * @param string|null $image
+     * @param MediaObject|null $image
      *
      * @return Blog
      */
-    public function setImage(?string $image): Blog
+    public function addImages(?MediaObject $image): Blog
     {
-        $this->image = $image;
+        $this->images->add($image);
+
+        return $this;
+    }
+
+    /**
+     * @param MediaObject|null $image
+     *
+     * @return Blog
+     */
+    public function removeImages(?MediaObject $image): Blog
+    {
+        $this->images->removeElement($image);
 
         return $this;
     }

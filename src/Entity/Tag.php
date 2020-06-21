@@ -5,15 +5,31 @@
  * This file is part of techzara blog
  */
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *          "get","post"
+ *     },
+ *     itemOperations={
+ *          "get"
+ *     },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
+ *
  * @ORM\Entity(repositoryClass=TagRepository::class)
  */
 class Tag
@@ -24,18 +40,45 @@ class Tag
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @ApiProperty(identifier=false)
      */
-    private $id;
+    private int $id;
+
+    /**
+     * The internal primary identity key.
+     *
+     * @var UuidInterface
+     *
+     * @ORM\Column(type="uuid", unique=true)
+     *
+     * @ApiProperty(identifier=true)
+     *
+     * @Groups("read")
+     */
+    private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Groups({"read","write"})
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="tags")
+     *
+     * @Groups({"write"})
      */
-    private $blog;
+    private ?Blog $blog;
+
+    /**
+     * Tag constructor.
+     */
+    public function __construct()
+    {
+        $this->uuid = Uuid::uuid4();
+    }
 
     /**
      * @return int|null
@@ -43,6 +86,14 @@ class Tag
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
     }
 
     /**

@@ -7,12 +7,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ReactionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *          "get","post"
+ *     },
+ *     itemOperations={
+ *          "get",
+ *          "delete"={"security"="is_granted('ROLE_ADMIN') or object.user = user"},
+ *          "put"={"security"="is_granted('ROLE_ADMIN') or object.user = user"}
+ *     },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
+ *
  * @ORM\Entity(repositoryClass=ReactionRepository::class)
  */
 class Reaction
@@ -21,28 +37,59 @@ class Reaction
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @ApiProperty(identifier=false)
      */
-    private $id;
+    private int $id;
+
+    /**
+     * The internal primary identity key.
+     *
+     * @var UuidInterface
+     *
+     * @ORM\Column(type="uuid", unique=true)
+     *
+     * @ApiProperty(identifier=true)
+     *
+     * @Groups("read")
+     */
+    private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     *
+     * @Groups({"read","write"})
      */
-    private $reaction;
+    private ?string $reaction;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reactions")
+     *
+     * @Groups({"read","write"})
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="reactions")
+     *
+     * @Groups({"read","write"})
      */
-    private $comment;
+    private ?Comment $comment;
 
     /**
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="reactions")
+     *
+     * @Groups({"read","write"})
      */
-    private $blog;
+    private ?Blog $blog;
+
+    /**
+     * Reaction constructor.
+     */
+    public function __construct()
+    {
+        $this->uuid = Uuid::uuid4();
+    }
 
     /**
      * @return int|null
@@ -50,6 +97,14 @@ class Reaction
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return UuidInterface|null
+     */
+    public function getUuid(): ?UuidInterface
+    {
+        return $this->uuid;
     }
 
     /**

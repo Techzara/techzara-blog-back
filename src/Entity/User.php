@@ -4,6 +4,7 @@
  *
  * This file is part of techzara blog
  */
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -14,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -45,7 +47,7 @@ class User implements UserInterface
      *
      * @ApiProperty(identifier=false)
      */
-    private $id;
+    private ?int $id;
 
     /**
      * The internal primary identity key.
@@ -58,7 +60,7 @@ class User implements UserInterface
      *
      * @Groups("read")
      */
-    private $uuid;
+    private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
@@ -67,7 +69,7 @@ class User implements UserInterface
      *
      * @Groups({"read", "write"})
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="string", length=150)
@@ -76,38 +78,38 @@ class User implements UserInterface
      *
      * @Groups({"read", "write"})
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="text", nullable=false)
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      *
      * @Groups({"read", "write"})
      */
-    private $pseudo;
+    private ?string $pseudo;
 
     /**
      * @ORM\Column(type="json")
      *
      * @Groups({"read", "write"})
      */
-    private $roles;
+    private array $roles;
 
     /**
      * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="user")
      *
      * @Groups("read")
      */
-    private $blogs;
+    private ?Collection $blogs;
 
     /**
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="user")
      */
-    private $reactions;
+    private ?Collection $reactions;
 
     /**
      * @var string|null
@@ -118,15 +120,22 @@ class User implements UserInterface
      *
      * @Groups("write")
      */
-    private $plainPassword;
+    private ?string $plainPassword;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
+     */
+    private ?Collection $comments;
 
     /**
      * User constructor.
      */
     public function __construct()
     {
+        $this->uuid = Uuid::uuid4();
         $this->blogs = new ArrayCollection();
         $this->reactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -143,18 +152,6 @@ class User implements UserInterface
     public function getUuid(): UuidInterface
     {
         return $this->uuid;
-    }
-
-    /**
-     * @param UuidInterface $uuid
-     *
-     * @return $this
-     */
-    public function setUuid(UuidInterface $uuid)
-    {
-        $this->uuid = $uuid;
-
-        return $this;
     }
 
     /**
@@ -250,13 +247,13 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $roles
+     * @param array $roles
      *
      * @return User
      */
-    public function setRoles(string $roles): User
+    public function setRoles(?array $roles): User
     {
-        $this->roles[] = $roles;
+        $this->roles = !empty($roles) ? $roles : ['ROLE_USER'];
 
         return $this;
     }
@@ -266,7 +263,7 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        // Return salt
+        return null;
     }
 
     /**
@@ -373,6 +370,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($reaction->getUser() === $this) {
                 $reaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 
