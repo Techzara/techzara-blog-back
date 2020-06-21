@@ -5,6 +5,8 @@
  * This file is part of techzara blog
  */
 
+declare(strict_types=1);
+
 namespace App\Swagger;
 
 use Symfony\Component\HttpFoundation\Response;

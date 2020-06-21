@@ -5,6 +5,8 @@
  * This file is part of techzara blog
  */
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -81,6 +83,13 @@ class Comment
      * @Groups({"read","write"})
      */
     private User $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="comments")
+     *
+     * @Groups({"read","write"})
+     */
+    private Blog $blog;
 
     /**
      * Comment constructor.
@@ -184,6 +193,26 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Blog|null
+     */
+    public function getBlog(): ?Blog
+    {
+        return $this->blog;
+    }
+
+    /**
+     * @param Blog|null $blog
+     *
+     * @return $this
+     */
+    public function setBlog(?Blog $blog): self
+    {
+        $this->blog = $blog;
 
         return $this;
     }

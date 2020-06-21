@@ -112,6 +112,13 @@ class Blog
     private Collection $reactions;
 
     /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="blog")
+     *
+     * @Groups("read")
+     */
+    private ?Collection $comments;
+
+    /**
      * Blog constructor.
      */
     public function __construct()
@@ -120,6 +127,7 @@ class Blog
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->reactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -306,6 +314,47 @@ class Blog
             // set the owning side to null (unless already changed)
             if ($reaction->getBlog() === $this) {
                 $reaction->setBlog(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getBlog() === $this) {
+                $comment->setBlog(null);
             }
         }
 

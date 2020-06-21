@@ -10,7 +10,6 @@ namespace App\DataPersister;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
