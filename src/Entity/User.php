@@ -7,12 +7,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -21,10 +23,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *     collectionOperations={
-        "get","post"
+ *       "get","post"
  *     },
  *     itemOperations={
-*       "get","put"
+ *       "get","put"
  *     },
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
@@ -40,8 +42,21 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @ApiProperty(identifier=false)
      */
     private $id;
+
+    /**
+     * The internal primary identity key.
+     *
+     * @var UuidInterface
+     *
+     * @ORM\Column(type="uuid", unique=true)
+     *
+     * @ApiProperty(identifier=true)
+     */
+    private $uuid;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
@@ -80,7 +95,7 @@ class User implements UserInterface
      *
      * @Groups({"read", "write"})
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="user")
@@ -115,11 +130,31 @@ class User implements UserInterface
     }
 
     /**
-     * @return int|null
+     * @return mixed
      */
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param UuidInterface $uuid
+     *
+     * @return $this
+     */
+    public function setUuid(UuidInterface $uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     /**
