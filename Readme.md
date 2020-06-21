@@ -14,6 +14,12 @@
 
 * Change database configuration in `.env`
 
+* Configure the [JWT token](https://github.com/lexik/LexikJWTAuthenticationBundle) :
+
+``` 
+    composer require jwt-auth
+```  
+
 * Then run :
 ```
 $ php bin/console d:d:c
