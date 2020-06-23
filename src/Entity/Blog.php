@@ -11,6 +11,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\BlogRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,6 +20,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\Nonstandard\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -32,8 +34,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "put"={"security"="is_granted('ROLE_ADMIN') or object.user == user"},
  *          "delete"={"security"="is_granted('ROLE_ADMIN') or object.user == user"}
  *     },
- *     normalizationContext={"groups"={"read"},"enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"},"enable_max_depth"=true}
+ *     normalizationContext={"groups"={"blog:read"},"enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"blog:write"},"enable_max_depth"=true}
  * )
  *
  * @ORM\Entity(repositoryClass=BlogRepository::class)
@@ -60,21 +62,25 @@ class Blog
      *
      * @ApiProperty(identifier=true)
      *
-     * @Groups("read")
+     * @Groups("blog:read")
      */
     private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="text")
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","blog:write"})
+     *
+     * @Assert\NotBlank()
      */
     private string $title;
 
     /**
      * @ORM\Column(type="text")
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","blog:write"})
+     *
+     * @Assert\NotBlank()
      */
     private string $description;
 
@@ -85,7 +91,7 @@ class Blog
      *
      * @ApiProperty(iri="http://schema.org/image")
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","blog:write"})
      */
     private ?Collection $images;
 
@@ -94,28 +100,32 @@ class Blog
      *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogs")
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","blog:write"})
      */
     private User $user;
 
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="blog")
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","blog:write"})
      */
     private Collection $tags;
 
     /**
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="blog")
      *
-     * @Groups("read")
+     * @Groups("blog:read")
+     *
+     * @ApiSubresource()
      */
     private Collection $reactions;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="blog")
      *
-     * @Groups("read")
+     * @Groups("blog:read")
+     *
+     * @ApiSubresource()
      */
     private ?Collection $comments;
 

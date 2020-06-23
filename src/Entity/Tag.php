@@ -27,8 +27,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "get",
  *          "delete"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"reaction:read"}},
+ *     denormalizationContext={"groups"={"reaction:write"}}
  * )
  *
  * @ORM\Entity(repositoryClass=TagRepository::class)
@@ -55,21 +55,21 @@ class Tag
      *
      * @ApiProperty(identifier=true)
      *
-     * @Groups("read")
+     * @Groups("reaction:read")
      */
     private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Groups({"read","write"})
+     * @Groups({"reaction:read","reaction:write"})
      */
     private ?string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="tags")
      *
-     * @Groups({"write"})
+     * @Groups({"reaction:write"})
      */
     private ?Blog $blog;
 

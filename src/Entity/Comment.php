@@ -11,6 +11,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -31,8 +32,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "delete"={"security"="is_granted('ROLE_ADMIN') or object.user == user"},
  *          "put"={"security"="is_granted('ROLE_ADMIN') or object.user == user"}
  *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"blog:read","comment:read"}},
+ *     denormalizationContext={"groups"={"comment:write"}}
  * )
  *
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -59,35 +60,37 @@ class Comment
      *
      * @ApiProperty(identifier=true)
      *
-     * @Groups("read")
+     * @Groups("comment:read")
      */
     private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","comment:read","comment:write"})
      */
     private ?string $comment;
 
     /**
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="comment")
      *
-     * @Groups({"read"})
+     * @Groups({"comment:read"})
+     *
+     * @ApiSubresource()
      */
     private ?Collection $reactions;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      *
-     * @Groups({"read","write"})
+     * @Groups({"blog:read","comment:read","comment:write"})
      */
     private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="comments")
      *
-     * @Groups({"read","write"})
+     * @Groups({"comment:read","comment:write"})
      */
     private Blog $blog;
 

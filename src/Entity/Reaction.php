@@ -27,8 +27,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "delete"={"security"="is_granted('ROLE_ADMIN') or object.user == user"},
  *          "put"={"security"="is_granted('ROLE_ADMIN') or object.user == user"}
  *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"reaction:read"}},
+ *     denormalizationContext={"groups"={"reaction:write"}}
  * )
  *
  * @ORM\Entity(repositoryClass=ReactionRepository::class)
@@ -53,35 +53,35 @@ class Reaction
      *
      * @ApiProperty(identifier=true)
      *
-     * @Groups("read")
+     * @Groups("reaction:read")
      */
     private ?UuidInterface $uuid;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      *
-     * @Groups({"read","write"})
+     * @Groups({"reaction:read","reaction:write"})
      */
     private ?string $reaction;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reactions")
      *
-     * @Groups({"read","write"})
+     * @Groups({"reaction:read","reaction:write"})
      */
     private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="reactions")
      *
-     * @Groups({"read","write"})
+     * @Groups({"reaction:read","reaction:write"})
      */
     private ?Comment $comment;
 
     /**
      * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="reactions")
      *
-     * @Groups({"read","write"})
+     * @Groups({"reaction:read","reaction:write"})
      */
     private ?Blog $blog;
 
