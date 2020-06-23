@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
+ *     forceEager=false,
  *     collectionOperations={
  *       "get","post"
  *     },
@@ -31,8 +32,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *       "get",
  *       "put" = {"security"="is_granted('ROLE_ADMIN') or object == user"}
  *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"read"},"enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"},"enable_max_depth"=true}
  * )
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)

@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *     forceEager=false,
  *      collectionOperations={
  *          "get",
  *          "post"={"security"="is_granted('ROLE_USER')"}
@@ -31,8 +32,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "put"={"security"="is_granted('ROLE_ADMIN') or object.user == user"},
  *          "delete"={"security"="is_granted('ROLE_ADMIN') or object.user == user"}
  *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"read"},"enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"},"enable_max_depth"=true}
  * )
  *
  * @ORM\Entity(repositoryClass=BlogRepository::class)
