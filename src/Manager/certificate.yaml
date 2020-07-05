@@ -172,3 +172,9 @@ MiDev:
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Frontend
+
+raveloMeva:
+  name: 'Ravelo Meva Soavina'
+  mention: 5
+  challenge: 'Certificate Challenge'
+  type: Frontend
