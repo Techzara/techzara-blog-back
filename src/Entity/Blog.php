@@ -13,6 +13,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\BlogRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +21,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\Nonstandard\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -370,5 +372,42 @@ class Blog
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     *
+     * @Groups("blog:read")
+     *
+     * @SerializedName("createdAt")
+     */
+    public function getCreatedAt()
+    {
+        return date_format($this->createdAt,'d-m-Y H:m');
+    }
+
+
+    /**
+     * @return string
+     *
+     * @Groups("blog:read")
+     *
+     * @SerializedName("updatedAt")
+     */
+    public function getUpdatedAt()
+    {
+        return date_format($this->updatedAt,'d-m-Y H:m');
+    }
+
+    /**
+     * @return string
+     *
+     * @Groups("blog:read")
+     *
+     * @SerializedName("createBy")
+     */
+    public function getCreateBy()
+    {
+        return $this->getUser() ? $this->getUser()->getUsername() : 'Techzara';
     }
 }

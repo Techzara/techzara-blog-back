@@ -397,6 +397,11 @@ class User implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -407,6 +412,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -418,5 +428,30 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     *
+     * @Groups("user:read")
+     *
+     * @SerializedName("createdAt")
+     */
+    public function getCreatedAt()
+    {
+        return date_format($this->createdAt,'d-m-Y H:m');
+    }
+
+
+    /**
+     * @return string
+     *
+     * @Groups("user:read")
+     *
+     * @SerializedName("updatedAt")
+     */
+    public function getUpdatedAt()
+    {
+        return date_format($this->updatedAt,'d-m-Y H:m');
     }
 }
