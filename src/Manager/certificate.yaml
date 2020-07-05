@@ -220,3 +220,15 @@ tenerivoso_j:
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
+
+jnSitrakaPrudence:
+  name: 'RAVELONTSOA Jean Prudence'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+
+jPrudence:
+  name: 'RAVELONTSOA Jean Prudence'
+  mention: 5
+  challenge: 'Certificate Challenge'
+  type: Frontend
