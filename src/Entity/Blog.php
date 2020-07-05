@@ -96,13 +96,13 @@ class Blog
     private ?Collection $images;
 
     /**
-     * @var User
+     * @var User|null
      *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogs")
      *
      * @Groups({"blog:read","blog:write"})
      */
-    private User $user;
+    private ?User $user;
 
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="blog")
