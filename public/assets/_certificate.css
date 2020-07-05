@@ -265,8 +265,8 @@ svg[class="award"] {
     width: 180px;
     height: 180px;
     position: relative;
-    top: 95px;
-    left: -45px;
+    top: 89px;
+    left: -52px;
     box-shadow: 0 5px 28px 0 rgba(0, 0, 0, 0.9);
     border-radius: 50%;
     z-index: 99;
@@ -306,4 +306,11 @@ svg[class="award"] {
     height: 300px;
     opacity: 0.5;
     z-index: 10;
+}
+
+.tz_image{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 0px;
 }

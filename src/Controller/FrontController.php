@@ -27,6 +27,6 @@ class FrontController extends AbstractController
      */
     public function welcomePage()
     {
-        return $this->render('landing_page.html.twig');
+        return $this->render('front/_front_index.html.twig');
     }
 }

@@ -1,0 +1,27 @@
+{% extends 'front/_front_index.html.twig' %}
+
+{% block title %} Liste challenge {% endblock %}
+
+{% block body %}
+    <div class="site-section section-2 vh-100 bg-light" id="process-section" data-aos="fade">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <h2 class="section-title" style="max-width: 100%!important;">Weekly Coding Challenge</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% for challenge in challenges %}
+                    <a href="{{ path('wcc_participants', {'challenge': challenge.id}) }}" class="col-md-3">
+                        <div class="card wcc_list">
+                            <div class="card-header">
+                                <h2>{{ challenge.name }}</h2>
+                                <span>Started at : {{ challenge.start|date('d-m-Y') }}</span>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
