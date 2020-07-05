@@ -73,21 +73,25 @@ class CertificateController extends AbstractController
      */
     public function createCertificate(Request $request, ?Certificate $certificate)
     {
-        $certificate = $certificate ?? new Certificate();
+        if ($this->isGranted('ROLE_ADMIN')){
+            $certificate = $certificate ?? new Certificate();
 
-        $form = $this->createForm(CertificateType::class, $certificate);
-        $form->handleRequest($request);
+            $form = $this->createForm(CertificateType::class, $certificate);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$certificate->getId()) {
-                $this->em->persist($certificate);
+            if ($form->isSubmitted() && $form->isValid()) {
+                if (!$certificate->getId()) {
+                    $this->em->persist($certificate);
+                }
+
+                $this->em->flush();
+
+                return $this->redirectToRoute('render_certificate', ['uuid' => $certificate->getUuid()]);
             }
 
-            $this->em->flush();
-
-            return $this->redirectToRoute('render_certificate', ['uuid' => $certificate->getUuid()]);
+            return $this->render('certificate/_create_certificate.html.twig', ['form' => $form->createView()]);
         }
 
-        return $this->render('certificate/_create_certificate.html.twig', ['form' => $form->createView()]);
+        return $this->redirectToRoute('front_rendering');
     }
 }

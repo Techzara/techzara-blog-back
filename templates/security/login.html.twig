@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="intro-section custom-owl-carousel" id="home-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mr-auto" data-aos="fade-up">
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
+                        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                        <div class="form-group">
+                            <label for="inputUsername">Username</label>
+                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword">Password</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" required>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+                        <button class="btn d-block w-100 btn-lg btn-primary" type="submit">
+                            Sign in
+                        </button>
+                    </form>
+                </div>
+                <div class="col-lg-6 ml-auto" data-aos="fade-up" data-aos-delay="100">
+                    <div class="owl-carousel slide-one-item-alt">
+                        <img src="{{ asset('techzara_image/community.jpg') }}" alt="Team building" class="img-fluid slide-1">
+                        <img src="{{ asset('techzara_image/electronique.jpg') }}" alt="Electronics and robotics community"
+                             class="img-fluid slide-1">
+                        <img src="{{ asset('techzara_image/meetup.jpg') }}" alt="Saturday meetup" class="img-fluid slide-1">
+                        <img src="{{ asset('techzara_image/event.jpg') }}" alt="Hackathon inter university" class="img-fluid slide-1">
+                    </div>
+                    <div class="owl-custom-direction">
+                        <a href="#" class="custom-prev"><span class="icon-keyboard_arrow_left"></span></a>
+                        <a href="#" class="custom-next"><span class="icon-keyboard_arrow_right"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
