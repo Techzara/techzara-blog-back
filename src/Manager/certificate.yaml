@@ -233,6 +233,12 @@ jPrudence:
   challenge: 'Certificate Challenge'
   type: Frontend
 
+jnSitraka:
+  name: 'JEAN NARIVELO Lala S.'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+  
 zandryKely:
   name: 'RANDRIANARIVO Fanomezantsoa S.'
   mention: 3
