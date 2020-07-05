@@ -171,7 +171,7 @@ MiDev:
   name: 'RAKOTOARINIVO Miranto F.'
   mention: 3
   challenge: 'WCC Initial Commit'
-  type: Frontend
+  type: Dev
 
 raveloMeva:
   name: 'Ravelo Meva Soavina'
@@ -232,3 +232,15 @@ jPrudence:
   mention: 5
   challenge: 'Certificate Challenge'
   type: Frontend
+
+zandryKely:
+  name: 'RANDRIANARIVO Fanomezantsoa S.'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Dev
+
+Thino:
+  name: 'Rakotomalala Berthino S.'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Dev
