@@ -41,8 +41,8 @@ class Certificate
 
     public const CERTIFICATE_MENTION = [
         2 => 'Passable',
-        3 => 'Bien',
-        4 => 'Très Bien',
+        3 => 'Good',
+        4 => 'Very Good',
         5 => 'Excellent',
     ];
 
