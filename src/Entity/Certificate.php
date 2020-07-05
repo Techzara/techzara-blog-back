@@ -111,6 +111,13 @@ class Certificate
     private ?string $type;
 
     /**
+     * @var string|null
+     *
+     * @Groups({"certificate:read"})
+     */
+    private ?string $certificateId;
+
+    /**
      * Certificate constructor.
      */
     public function __construct()
@@ -119,6 +126,7 @@ class Certificate
         $this->uuid = Uuid::uuid4();
         $this->mention = 2;
         $this->fullName = 'Rakoto';
+        $this->type = 'Dev';
         $this->challenge = 'Hackathon';
     }
 
