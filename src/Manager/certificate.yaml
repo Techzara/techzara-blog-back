@@ -181,6 +181,12 @@ raveloMeva:
 
 Unviray:
   name: 'Unviray'
-  mention: 4
+  mention: 3
   challenge: 'WCC Initial Commit'
   type: Dev
+
+r_gamechanger:
+  name: 'Ny Andrianina Mamy'
+  mention: 4
+  challenge: 'WCC Initial Commit'
+  type: Algo
