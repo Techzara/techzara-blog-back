@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @Author <julienrajerison5@gmail.com>
+ *
+ * This file is part of techzara blog
+ */
 namespace App\Security;
 
 use App\Entity\User;
@@ -21,6 +25,9 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+/**
+ * Class TzBlogAuthenticator.
+ */
 class TzBlogAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
     use TargetPathTrait;
