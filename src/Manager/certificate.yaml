@@ -178,3 +178,9 @@ raveloMeva:
   mention: 5
   challenge: 'Certificate Challenge'
   type: Frontend
+
+Unviray:
+  name: 'Unviray'
+  mention: 4
+  challenge: 'WCC Initial Commit'
+  type: Dev

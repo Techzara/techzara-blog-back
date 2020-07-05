@@ -88,7 +88,7 @@
 #global-card .content {
     position: relative;
     z-index: 10000;
-    width: 400px;
+    width: 500px;
     top: -358px;
     right: 0;
 }
@@ -313,5 +313,5 @@ svg[class="award"] {
     width: 100px;
     height: 100px;
     position: absolute;
-    right: 0px;
+    right: 100px;
 }
