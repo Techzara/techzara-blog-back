@@ -69,6 +69,17 @@ class CertificateType extends AbstractType
                     ],
                     'required' => true,
                 ]
+            )
+            ->add(
+                'pseudo',
+                TextType::class,
+                [
+                    'label' => 'Pseudo',
+                    'attr' => [
+                        'class' => 'form-control input-sm',
+                    ],
+                    'required' => true,
+                ]
             );
     }
 

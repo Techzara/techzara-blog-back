@@ -51,6 +51,10 @@ class CertificateController extends AbstractController
         try {
             $certificate = $this->repository->findOneBy(['fullName' => $uuid]);
 
+            if (!$certificate){
+                $certificate = $this->repository->findOneBy(['pseudo' => $uuid]);
+            }
+
             if (!$certificate) {
                 $certificate = $this->repository->findOneBy(['uuid' => $uuid]);
             }

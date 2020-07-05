@@ -118,6 +118,15 @@ class Certificate
     private ?string $certificateId;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=150, nullable=true)
+     *
+     * @Groups("certificate:read")
+     */
+    private ?string $pseudo;
+
+    /**
      * Certificate constructor.
      */
     public function __construct()
@@ -128,6 +137,7 @@ class Certificate
         $this->fullName = 'Rakoto';
         $this->type = 'Dev';
         $this->challenge = 'Hackathon';
+        $this->pseudo = '';
     }
 
     /**
@@ -240,5 +250,25 @@ class Certificate
     public function getCertificateId(): ?string
     {
         return date_format($this->createdAt, 'Y').'TZ'.$this->id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * @param string|null $pseudo
+     *
+     * @return Certificate
+     */
+    public function setPseudo(?string $pseudo): Certificate
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
     }
 }

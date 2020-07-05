@@ -158,9 +158,10 @@
 
 .content h4[class="name"] {
     font-family: Toots;
+    text-align: center;
     font-size: 2.5rem;
     font-weight: 100;
-    width: 400px;
+    width: 450px;
     position: relative;
     top: 30px;
     left: -75px;
@@ -193,7 +194,7 @@
     font-size: 2.5rem;
     font-style: italic;
     font-weight: 100;
-    width: 300px;
+    width: 350px;
     position: relative;
     top: 60px;
     text-align: center;
