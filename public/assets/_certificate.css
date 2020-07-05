@@ -1,0 +1,309 @@
+@font-face {
+    font-family: Toots;
+    src: url("./Toots-Extended-Regular.ttf");
+}
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#global-card {
+    width: 950px;
+    height: 650px;
+    margin: 4rem auto;
+    background-color: #0aaaea;
+    border: 1px solid #0aaaea;
+    z-index: -1;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+#global-card .white-part {
+    width: 400px;
+    height: 620px;
+    background-color: #fff;
+    margin: 16px;
+    position: relative;
+    top: -302px;
+    left: 517px;
+    z-index: 100;
+}
+#global-card .white-part::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -230px;
+    background-color: #fff;
+    transform: skewX(-25deg);
+    z-index: 1;
+}
+
+.additionnal-1 {
+    width: 50px;
+    height: 300px;
+    background-color: #fff;
+    margin: 16px;
+    position: relative;
+    top: 0;
+    left: -90px;
+    z-index: 100;
+}
+
+.additionnal-1:before {
+    position: absolute;
+    content: "";
+    width: 30%;
+    height: 120%;
+    top: 40px;
+    left: -90px;
+    background-color: #0aaaea;
+    transform: skewX(-25deg);
+    z-index: 1;
+}
+.additionnal-2 {
+    width: 50px;
+    height: 300px;
+    background-color: #fff;
+    margin: 16px;
+    position: relative;
+    top: 0;
+    left: 40px;
+    z-index: 100;
+}
+
+.additionnal-2:before {
+    position: absolute;
+    content: "";
+    width: 20%;
+    height: 45%;
+    top: 140px;
+    left: -100px;
+    background-color: #0aaaea;
+    transform: skewX(-25deg);
+    z-index: 1;
+}
+
+#global-card .content {
+    position: relative;
+    z-index: 10000;
+    width: 400px;
+    top: -358px;
+    right: 0;
+}
+#global-card .content::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 250%;
+    top: -300px;
+    left: -100px;
+    /* background-color: rgba(0, 0, 255, 0.1); */
+    transform: skewX(-25deg);
+    z-index: 1;
+}
+
+.content h2 {
+    position: relative;
+    top: -15px;
+    left: 20px;
+    color: #0aaaea;
+    font-size: 1.8rem;
+    z-index: 1000;
+}
+.content h1 {
+    position: relative;
+    top: 25px;
+    left: -30px;
+    font-weight: 900;
+    font-style: oblique;
+    font-size: 2.6rem;
+}
+
+.slash {
+    font-weight: bolder;
+    color: #0aaaea;
+    font-size: 3rem;
+}
+.deposé {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-left: 20px;
+    padding: 1px;
+}
+
+.deposé::before,
+.deposé::after {
+    position: absolute;
+    content: "";
+    width: 10%;
+    height: 50%;
+    top: 17px;
+    right: 41px;
+    background-color: #0aaaea;
+    transform: skewX(-25deg);
+    z-index: -1;
+    padding: 5px;
+}
+
+.content h3 {
+    position: relative;
+    top: 25px;
+    left: -50px;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.5rem;
+}
+
+.content h4[class="name"] {
+    font-family: Toots;
+    font-size: 2.5rem;
+    font-weight: 100;
+    width: 400px;
+    position: relative;
+    top: 30px;
+    left: -75px;
+    border-bottom: 0.2rem dashed #eee;
+}
+
+.content p {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.content p[class="first-line"] {
+    position: relative;
+    top: 30px;
+    left: -90px;
+    font-style: italic;
+}
+.content p[class="second-line"] {
+    position: relative;
+    top: 30px;
+    left: -100px;
+}
+.content p[class="third-line"] {
+    position: relative;
+    top: 30px;
+    left: -110px;
+}
+
+.content h4[class="territory"] {
+    font-size: 2.5rem;
+    font-style: italic;
+    font-weight: 100;
+    width: 300px;
+    position: relative;
+    top: 60px;
+    text-align: center;
+    left: -140px;
+    border-bottom: 0.2rem dashed #eee;
+}
+
+.content .mention {
+    font-style: italic;
+    font-weight: 100;
+    width: 100%;
+    position: relative;
+    top: 90px;
+    left: -140px;
+}
+
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    position: relative;
+    top: 170px;
+    left: -220px;
+    width: 700px;
+}
+
+.footer span {
+    width: 500px;
+}
+
+#global-card .noeuds {
+    width: 80px;
+    height: 300px;
+    background-color: #0aaaea;
+    position: relative;
+    top: -1px;
+    left: 100px;
+    box-shadow: 0 32px 28px 0 rgba(0, 0, 0, 0.9);
+}
+#global-card .noeuds::before,
+#global-card .noeuds::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 30px;
+    left: 0;
+    background-color: #0aaaea;
+    transform: skewY(-30deg);
+    z-index: 1;
+}
+
+#global-card .noeuds::after {
+    transform: skewY(30deg);
+    background-color: rgb(10, 170, 234);
+}
+
+svg[class="award"] {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    z-index: 100;
+    top: -250px;
+    left: -60px;
+}
+
+.noeuds .circle-radius {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    top: 95px;
+    left: -45px;
+    box-shadow: 0 5px 28px 0 rgba(0, 0, 0, 0.9);
+    border-radius: 50%;
+    z-index: 99;
+}
+.noeuds .circle-white {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: -75px;
+    left: -35px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 101;
+    font-size: 3.5rem;
+}
+
+.circle-white p {
+    padding: 40px 25px;
+}
+
+.star {
+    width: 20px;
+    height: 20px;
+}
+
+.fond-hexagone {
+    width: 450px;
+    height: 400px;
+    position: relative;
+    top: 0;
+    right: -19px;
+    z-index: 100;
+}
+
+.fond-hexagone img {
+    width: 400px;
+    height: 300px;
+    opacity: 0.5;
+    z-index: 10;
+}
