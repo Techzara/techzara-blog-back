@@ -28,6 +28,9 @@ security:
             guard:
                 authenticators:
                     - App\Security\TzBlogAuthenticator
+            logout:
+                path: app_logout
+                target: /login
             json_login:
                 check_path: /authentication_token
                 username_path: username
