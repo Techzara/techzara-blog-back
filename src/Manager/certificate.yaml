@@ -193,6 +193,24 @@ r_gamechanger:
 
 tiantsoa_r:
   name: 'RATSIMBAZAFY Tiantsoa T.'
-  mention: 4
+  mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
+
+sandratrah_r:
+  name: 'Rakotonanahary Sandratrahasina'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+
+langaha69:
+  name: 'MEMINIAINA Zo Hasina'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+
+Feno:
+  name: 'Andriamorasata Fenomanjato'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Dev
