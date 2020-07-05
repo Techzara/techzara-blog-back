@@ -21,9 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CertificateController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
+    /**  @var EntityManagerInterface */
     private EntityManagerInterface $em;
 
     /** @var CertificateRepository */
@@ -73,7 +71,7 @@ class CertificateController extends AbstractController
      */
     public function createCertificate(Request $request, ?Certificate $certificate)
     {
-        if ($this->isGranted('ROLE_ADMIN')){
+        if ($this->isGranted('ROLE_ADMIN')) {
             $certificate = $certificate ?? new Certificate();
 
             $form = $this->createForm(CertificateType::class, $certificate);

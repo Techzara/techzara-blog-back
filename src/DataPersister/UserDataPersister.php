@@ -17,8 +17,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserDataPersister implements DataPersisterInterface
 {
+    /** @var EntityManagerInterface  */
     private EntityManagerInterface $entityManager;
 
+    /** @var UserPasswordEncoderInterface */
     private UserPasswordEncoderInterface $encoder;
 
     /**
