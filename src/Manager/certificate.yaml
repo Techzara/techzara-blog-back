@@ -5,7 +5,7 @@ lucoram:
   type: Algo
 
 ezakaMirindra:
-  name: 'RAHOLIARISOA Mirindra M.'
+  name: 'Raholiarisoa Mirindra M.'
   mention: 4
   challenge: 'WCC Initial Commit'
   type: Frontend
@@ -23,7 +23,7 @@ Henintsoo:
   type: Algo
 
 RMK:
-  name: 'RANDRIAJAOSON Ando L.'
+  name: 'Randriajaoson Ando L.'
   mention: 4
   challenge: 'WCC Initial Commit'
   type: Dev
@@ -126,7 +126,7 @@ cypher:
   type: Frontend
 
 tex:
-  name: 'RAHERIMANJAKA Thierry'
+  name: 'Raherimanjaka Thierry'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Dev
@@ -174,7 +174,7 @@ rjn:
   type: Algo
 
 MiDev:
-  name: 'RAKOTOARINIVO Miranto F.'
+  name: 'Rakotoarinivo Miranto F.'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Dev
@@ -198,7 +198,7 @@ r_gamechanger:
   type: Algo
 
 tiantsoa_r:
-  name: 'RATSIMBAZAFY Tiantsoa T.'
+  name: 'Ratsimbazafy Tiantsoa T.'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
@@ -210,7 +210,7 @@ sandratrah_r:
   type: Algo
 
 langaha69:
-  name: 'MEMINIAINA Zo Hasina'
+  name: 'Meminiaina Zo Hasina'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
@@ -246,7 +246,7 @@ jnSitraka:
   type: Algo
 
 zandryKely:
-  name: 'RANDRIANARIVO Fanomezantsoa S.'
+  name: 'Randrianarivo Fanomezantsoa S.'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Dev
