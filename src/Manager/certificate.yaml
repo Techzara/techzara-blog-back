@@ -17,7 +17,7 @@ Todisoa:
   type: Dev
 
 Henintsoo:
-  name : 'HASIN’NY AINA Henintsoa'
+  name : 'Hasin’ny Aina Henintsoa'
   mention: 4
   challenge: 'WCC Initial Commit'
   type: Algo
@@ -47,7 +47,7 @@ BlackHawkFy:
   type: Dev
 
 Nasaina:
-  name: 'ANDRIANARIJAONA Nasainarivelo'
+  name: 'Andrianarijaona Nasainarivelo'
   mention: 4
   challenge: 'WCC Initial Commit'
   type: Frontend
@@ -71,7 +71,7 @@ GarinaL:
   type: Algo
 
 NomenyiTech:
-  name: 'TSILAVITIANA Nomenjanahary'
+  name: 'Tsilavitiana Nomenjanahary'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Dev
@@ -94,8 +94,14 @@ Nyainaraza:
   challenge: 'WCC Initial Commit'
   type: Algo
 
-bbt:
+bbtRado:
   name: 'Rado Andriamaro'
+  mention: 5
+  challenge: 'WCC Initial Commit'
+  type: Dev
+
+bbtFanantenana:
+  name: 'Fanantenana Andrianirina'
   mention: 5
   challenge: 'WCC Initial Commit'
   type: Dev
@@ -126,7 +132,7 @@ tex:
   type: Dev
 
 fahazaravana:
-  name: 'RANDRIANANTENAINA Jean Lucien'
+  name: 'Randrianantenaina Jean Lucien'
   mention: 4
   challenge: 'WCC Initial Commit'
   type: Algo
@@ -238,7 +244,7 @@ jnSitraka:
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
-  
+
 zandryKely:
   name: 'RANDRIANARIVO Fanomezantsoa S.'
   mention: 3
@@ -250,3 +256,27 @@ Thino:
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Dev
+
+Tsierenana_G:
+  name: 'Tsierenana Bôtramanagna G.'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+
+acf-patrick:
+  name: 'Tojoniaina Patrick'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+
+dunnoDodi:
+  name: 'Randrianaivomanana Andritiana'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
+
+jasmin_20:
+  name: 'Tolojanahary Fandresena J.'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Algo
