@@ -287,3 +287,8 @@ KoloinaTetra:
   challenge: 'WCC Initial Commit'
   type: Algo
 
+Manda:
+  name: 'NARIZAFY Mario.'
+  mention: 3
+  challenge: 'WCC Initial Commit'
+  type: Dev
