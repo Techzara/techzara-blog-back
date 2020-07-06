@@ -228,19 +228,19 @@ tenerivoso_j:
   type: Algo
 
 jnSitrakaPrudence:
-  name: 'RAVELONTSOA Jean Prudence'
+  name: 'Ravelontsoa Jean Prudence'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
 
 jPrudence:
-  name: 'RAVELONTSOA Jean Prudence'
+  name: 'Ravelontsoa Jean Prudence'
   mention: 5
   challenge: 'Certificate Challenge'
   type: Frontend
 
 jnSitraka:
-  name: 'JEAN NARIVELO Lala S.'
+  name: 'Jean Narivelo Lala S.'
   mention: 3
   challenge: 'WCC Initial Commit'
   type: Algo
